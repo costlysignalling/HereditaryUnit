@@ -105,6 +105,8 @@ right_region <- function(bound,s,max_bp,col,unit) {
 draw <- function(number,mutation=FALSE,unit="Mb") {
   s <- seq(s_min,s_max,length.out=n_curve)
   max_bp <- if(number==1) main1_max_bp else main2_max_bp
+  # Keep the genetic-axis ranges fixed when physical map calibration changes.
+  if(unit=="cM") max_bp <- 1+(if(number==1) 0.30 else 0.03)/rho
   cols <- c("#2C7FB8","#F0E17A","#D9793D","#E0E0E0")
   layout(matrix(c(1,2,3,4,5,5),nrow=3,byrow=TRUE),heights=c(1,1,0.23))
   par(mar=c(4.2,4.1,2.1,1.0),oma=c(0,0,3,0),
