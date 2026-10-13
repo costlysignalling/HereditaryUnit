@@ -108,9 +108,9 @@ draw <- function(number,mutation=FALSE,unit="Mb") {
   # Keep the genetic-axis ranges fixed when physical map calibration changes.
   if(unit=="cM") max_bp <- 1+(if(number==1) 0.30 else 0.03)/rho
   cols <- c("#2C7FB8","#F0E17A","#D9793D","#E0E0E0")
-  layout(matrix(c(1,2,3,4,5,5),nrow=3,byrow=TRUE),heights=c(1,1,0.23))
-  par(mar=c(4.2,4.1,2.1,1.0),oma=c(0,0,3,0),
-      mgp=c(2.5,0.7,0),las=1,family="sans")
+  layout(matrix(c(1,2,3,4,5,5),nrow=3,byrow=TRUE),heights=c(1,1,0.48))
+  par(mar=c(4.8,5.5,2.1,1.0),oma=c(0,0,3,0),
+      mgp=c(3.6,0.9,0),las=1,family="sans",cex.axis=1.25,cex.lab=1.25,cex.main=1.35)
   for(Ne in Ne_values) {
     plot(NA,xlim=c(0,axis_value(max_bp,unit)),ylim=c(s_min,s_max),xaxs="i",yaxs="i",
          xlab=if(unit=="cM") "Genetic map distance (cM)" else "B, physical span (Mb)",ylab="s, selective advantage",
@@ -174,14 +174,14 @@ draw <- function(number,mutation=FALSE,unit="Mb") {
   labels <- if(number==1) c("Positive net selection","Drift zone","Negative net selection") else
     c("P > 0.95","0.50 <= P <= 0.95","P < 0.50",
       if(mutation) "Initial criterion / half sweep not met" else "Initial criterion not met")
-  legend("center",legend=labels,fill=cols[seq_along(labels)],ncol=if(number==1) 3 else 2,bty="n",cex=1.1,x.intersp=0.7,y.intersp=1.05)
+  legend("center",legend=labels,fill=cols[seq_along(labels)],ncol=1,bty="n",cex=1.9,x.intersp=0.7,y.intersp=1.05)
 }
 save_fig <- function(number,mutation=FALSE,unit="Mb") {
   stem <- file.path(out_dir,paste0(if(unit=="cM") paste0("FigureS",number+2) else
     paste0("Figure",if(mutation) "S" else "",number),"_analytical"))
-  pdf(paste0(stem,".pdf"),width=9,height=7,useDingbats=FALSE)
+  pdf(paste0(stem,".pdf"),width=9,height=8.5,useDingbats=FALSE)
   tryCatch(draw(number,mutation,unit),finally=dev.off())
-  png(paste0(stem,".png"),width=2700,height=2100,res=300)
+  png(paste0(stem,".png"),width=2700,height=2550,res=300)
   tryCatch(draw(number,mutation,unit),finally=dev.off())
 }
 
