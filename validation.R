@@ -12,9 +12,9 @@ for (B in c(5000,25000)) {
  stopifnot(abs(A_num-times$A)<1e-8,abs(T_num-times$T)<1e-8)
 }
 # Genetic boundary coordinates must be independent of bp-to-Morgan calibration.
-reference <- axis_value(retention_bound(c(.01,.1,.25),1000,.95),'cM')
+reference <- 100*map_length(retention_bound(c(.01,.1,.25),1000,.95))
 rho <- 3e-8
-stopifnot(max(abs(reference-axis_value(retention_bound(c(.01,.1,.25),1000,.95),'cM')))<1e-12)
+stopifnot(max(abs(reference-100*map_length(retention_bound(c(.01,.1,.25),1000,.95))))<1e-12)
 mu <- 0
 for(B in c(1,1000,20000)) {
  stopifnot(abs(log_retention(.1,1000,B,TRUE)-log_retention(.1,1000,B,FALSE))<1e-12)
